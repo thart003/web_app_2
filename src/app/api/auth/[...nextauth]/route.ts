@@ -1,10 +1,9 @@
 // src/app/api/auth/[...nextauth]/route.ts
-import NextAuth from 'next-auth';
+import NextAuth, { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { connectDB } from '@/lib/mongodb';
 import User from '@/models/User';
 import bcrypt from 'bcryptjs';
-import { AuthOptions } from 'next-auth';
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -33,7 +32,7 @@ export const authOptions: AuthOptions = {
         }
 
         return {
-          id: user._id,
+          id: user._id.toString(),
           email: user.email,
           name: user.name,
           isPremium: user.isPremium,
@@ -41,12 +40,6 @@ export const authOptions: AuthOptions = {
       }
     })
   ],
-  session: {
-    strategy: 'jwt',
-  },
-  pages: {
-    signIn: '/auth/signin',
-  },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
@@ -60,6 +53,12 @@ export const authOptions: AuthOptions = {
       }
       return session;
     }
+  },
+  session: {
+    strategy: 'jwt',
+  },
+  pages: {
+    signIn: '/auth/signin',
   }
 };
 
