@@ -1,3 +1,4 @@
+
 // src/app/api/stripe/webhook/route.ts
 import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
@@ -26,12 +27,10 @@ export async function POST(req: Request) {
     switch (event.type) {
       case 'checkout.session.completed':
         const session = event.data.object as Stripe.Checkout.Session;
-        // Handle successful payment
-        // Update user's access/credits/etc.
         console.log('Payment successful:', session.id);
+        // Handle successful payment
         break;
       
-      // Add other event types as needed
       default:
         console.log(`Unhandled event type: ${event.type}`);
     }
