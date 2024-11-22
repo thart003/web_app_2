@@ -1,3 +1,4 @@
+// src/components/ui/button.tsx
 import { ReactNode } from 'react';
 
 interface ButtonProps {
@@ -6,6 +7,7 @@ interface ButtonProps {
   variant?: 'primary' | 'secondary';
   size?: 'sm' | 'md' | 'lg';
   disabled?: boolean;
+  className?: string;  // Added className prop
 }
 
 export function Button({ 
@@ -13,15 +15,16 @@ export function Button({
   onClick, 
   variant = 'primary',
   size = 'md',
-  disabled = false 
+  disabled = false,
+  className = ''  // Default to empty string
 }: ButtonProps) {
   const baseClass = 'btn';
   const variantClass = variant === 'primary' ? 'btn-primary' : 'btn-secondary';
   const sizeClass = `btn-${size}`;
-
+  
   return (
     <button 
-      className={`${baseClass} ${variantClass} ${sizeClass}`}
+      className={`${baseClass} ${variantClass} ${sizeClass} ${className}`.trim()}
       onClick={onClick}
       disabled={disabled}
     >
