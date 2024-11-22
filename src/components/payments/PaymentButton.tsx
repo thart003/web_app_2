@@ -1,17 +1,22 @@
-
-// src/components/payment/PaymentButton.tsx
+// src/components/payments/PaymentButton.tsx
 import React from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Button } from '@/components/ui/button';
+import { cn } from "@/lib/utils";  // Make sure you have this utility
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 interface PaymentButtonProps {
   amount: number;
   disabled?: boolean;
+  className?: string;
 }
 
-export const PaymentButton: React.FC<PaymentButtonProps> = ({ amount, disabled }) => {
+export const PaymentButton: React.FC<PaymentButtonProps> = ({
+  amount,
+  disabled,
+  className
+}) => {
   const handlePayment = async () => {
     try {
       const stripe = await stripePromise;
@@ -43,9 +48,15 @@ export const PaymentButton: React.FC<PaymentButtonProps> = ({ amount, disabled }
     <Button
       onClick={handlePayment}
       disabled={disabled}
-      className="w-full"
+      variant="default"
+      className={cn(
+        "w-full",
+        className
+      )}
     >
       Pay ${amount}
     </Button>
   );
 };
+
+export default PaymentButton;
