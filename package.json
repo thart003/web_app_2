@@ -9,13 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@stripe/stripe-js": "^5.2.0",
     "bcryptjs": "^2.4.3",
     "daisyui": "^4.12.14",
     "mongoose": "^8.8.1",
     "next": "15.0.3",
     "next-auth": "^4.24.10",
     "react": "19.0.0-rc-66855b96-20241106",
-    "react-dom": "19.0.0-rc-66855b96-20241106"
+    "react-dom": "19.0.0-rc-66855b96-20241106",
+    "stripe": "^17.4.0"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
