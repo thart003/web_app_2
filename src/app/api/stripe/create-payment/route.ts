@@ -33,12 +33,13 @@ export async function POST(req: Request) {
         },
       ],
       success_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/pricing`,
+      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}`,
       customer_email: session.user.email!,
     });
 
     return NextResponse.json({ sessionId: checkoutSession.id });
   } catch (error) {
+    console.error('Payment error:', error);
     return NextResponse.json(
       { error: 'Error creating checkout session' },
       { status: 500 }
